@@ -4,10 +4,10 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/master'
 
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/action
       - name: php setup
         uses: shivammathur/setup-php@v2
         with:
