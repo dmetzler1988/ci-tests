@@ -1,0 +1,44 @@
+FROM php:7.4-apache
+
+ENV TIMEZONE=Europe/Zurich
+
+RUN apt-get update && apt-get install -y \
+    vim \
+    unzip \
+    iputils-ping
+
+# Configure php intl.
+RUN docker-php-ext-configure intl
+
+RUN docker-php-ext-install \
+    zip \
+    mysqli \
+    sockets \
+    gd \
+    intl
+
+RUN a2enmod rewrite
+
+# Set timezone and reload config
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+RUN echo ${TIMEZONE} > /etc/timezone
+
+# Install composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Install xdebug
+RUN pecl install xdebug \
+ && docker-php-ext-enable xdebug
+
+# Copy xdebug and php config.
+COPY ./conf.d/* $PHP_INI_DIR/conf.d/
+
+# Apache configuration
+RUN sed -i 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/000-default.conf
+RUN mv /var/www/html /var/www/public
+RUN echo "AllowEncodedSlashes On" >> /etc/apache2/apache2.conf
+RUN a2enmod rewrite
+RUN chown -R www-data:www-data /var/www/html
+COPY ./apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+
+WORKDIR /var/www/html

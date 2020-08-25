@@ -1,0 +1,19 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: php setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          ini-values: post_max_size=256M
+          coverage: xdebug
+          tools: composer
+      - name: Install dependencies
+        run: composer install
