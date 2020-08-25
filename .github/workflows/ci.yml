@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Test own action
-        uses: /.github/actions/action
+        uses: /.github/actions/action@master
 #      - name: php setup
 #        uses: shivammathur/setup-php@v2
 #        with:
