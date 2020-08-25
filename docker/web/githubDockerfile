@@ -43,6 +43,5 @@ COPY ./docker/web/apache/vhost.conf /etc/apache2/sites-available/000-default.con
 WORKDIR /var/www/html
 
 COPY . .
-COPY config/autoload/local.php.dist config/autoload/local.php
 RUN composer install
 RUN chown -R www-data:www-data .
