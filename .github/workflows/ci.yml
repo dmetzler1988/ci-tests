@@ -7,7 +7,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/action
+      - uses: actions/action@v1
       - name: php setup
         uses: shivammathur/setup-php@v2
         with:
