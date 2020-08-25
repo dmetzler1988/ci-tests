@@ -10,6 +10,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file docker/web/githubDockerfile --tag myimagename:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
+  exec:
+    runs-on: myimagename:latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: php setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: sockets, zip, mysqli, pdo_mysql
+          ini-values: post_max_size=256M
+          coverage: xdebug
+          tools: composer, phpcs, phpunit, phpmd
