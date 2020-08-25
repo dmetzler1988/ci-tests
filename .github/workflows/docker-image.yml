@@ -15,4 +15,3 @@ jobs:
         run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
       - name: run checks
         uses: myimagename:latest
-        run: echo "bla"
