@@ -11,6 +11,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Runs action
         uses: ./ # Uses an action in the root directory
-        run: composer install
       - name: Install dependencies
         run: composer install
