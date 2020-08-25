@@ -31,14 +31,14 @@ RUN pecl install xdebug \
  && docker-php-ext-enable xdebug
 
 # Copy xdebug and php config.
-COPY ./docker/web/conf.d/* /usr/local/etc/php/conf.d/
+COPY ./conf.d/* /usr/local/etc/php/conf.d/
 
 # Apache configuration
 RUN sed -i 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/000-default.conf
 RUN mv /var/www/html /var/www/public
 RUN echo "AllowEncodedSlashes On" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite
-COPY ./docker/web/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY ./apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html
 
