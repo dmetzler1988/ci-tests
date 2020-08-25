@@ -2,7 +2,13 @@ FROM php:7.4-apache
 
 ENV TIMEZONE=Europe/Zurich
 
-RUN apt-get update && apt-get install -y vim
+RUN apt-get update && apt-get install -y  \
+    vim \
+    zlib1g-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libzip-dev \
+    libxml2-dev
 
 # Configure php intl.
 RUN docker-php-ext-configure intl
