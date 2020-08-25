@@ -1,15 +1,15 @@
-name: Docker Image CI
-
-on:
-  push:
-    branches: '*'
-  pull_request:
-    branches: '*'
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build the Docker image
-        run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
+#name: Docker Image CI
+#
+#on:
+#  push:
+#    branches: '*'
+#  pull_request:
+#    branches: '*'
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Build the Docker image
+#        run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
