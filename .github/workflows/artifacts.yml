@@ -28,4 +28,4 @@ jobs:
       - name: Load saved Docker image
         run: docker load -i myimage.tar
       - name: Run and exec command in Docker image
-        run: docker run -it myimagename composer install
+        run: docker run -it -d myimagename composer install
