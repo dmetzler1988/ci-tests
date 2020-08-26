@@ -19,7 +19,7 @@ jobs:
   job_2:
     name: Run test on image
     needs: job_1
-    runs-on: myimagename:latest
+    runs-on: ubuntu-latest
     steps:
       - name: Download artifact for job 1
         uses: actions/download-artifact@v2
@@ -27,5 +27,5 @@ jobs:
           name: myimagetar
       - name: Load saved Docker image
         run: docker load -i myimage.tar
-      - name: Install dependencies
-        run: composer install
+      - name: Run and exec command in Docker image
+        run: docker run -it myimagename composer install
