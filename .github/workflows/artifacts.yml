@@ -31,7 +31,7 @@ jobs:
         id: phpcs
         run: |
           docker run -d --name myimage myimagename:latest
-          docker exec -it -d myimage composer cs-check | tee phpcsCheck.txt
+          docker exec -it -d myimage composer cs-check  > phpcsCheck.txt
         continue-on-error: true
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v2
