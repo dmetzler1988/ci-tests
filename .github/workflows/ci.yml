@@ -2,9 +2,9 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  if: false
-
   build:
+    if: false
+
     runs-on: ubuntu-latest
 
     steps:
