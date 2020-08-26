@@ -3,6 +3,8 @@ name: Share data between jobs
 on: [push]
 
 jobs:
+  if: false
+
   job_1:
     name: Add 3 and 7
     runs-on: ubuntu-latest

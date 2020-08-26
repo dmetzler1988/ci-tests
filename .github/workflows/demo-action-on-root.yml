@@ -1,6 +1,8 @@
 on: [push]
 
 jobs:
+  if: false
+
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
@@ -10,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Hello world action step
-        uses: ./demo-action.yml # Uses an action in the root directory
+        uses: ./ # Uses an action in the root directory
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'

@@ -1,20 +1,22 @@
-#name: CI
-#on: [push, pull_request]
-#
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v1
-#      - name: Test own action
-#        uses: /.github/actions/action@master
-#      - name: php setup
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: '7.4'
-#          ini-values: post_max_size=256M
-#          coverage: xdebug
-#          tools: composer
-#      - name: Install dependencies
-#        run: composer install
+name: CI
+on: [push, pull_request]
+
+jobs:
+  if: false
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test own action
+        uses: /.github/actions/action@master
+      - name: php setup
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          ini-values: post_max_size=256M
+          coverage: xdebug
+          tools: composer
+      - name: Install dependencies
+        run: composer install
