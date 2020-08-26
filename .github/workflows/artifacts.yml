@@ -27,5 +27,12 @@ jobs:
           name: myimagetar
       - name: Load saved Docker image
         run: docker load -i myimage.tar
-      - name: Run and exec command in Docker image
-        run: docker run -it -d myimagename composer install
+      - name: PHPCS tests
+        id: phpcs
+        run: docker run -it -d myimagename composer run-script cs-check > phpcsCheck.txt
+        continue-on-error: true
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: PHPcsCheck
+          path: phpcsCheck.txt
