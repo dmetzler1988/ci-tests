@@ -10,7 +10,7 @@ jobs:
         run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
       - name: Save the Docker image to file
         run: docker save -o myimage.tar myimagename:latest
-      - name: Upload math result for job 1
+      - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v2
         with:
           name: myimagetar
@@ -19,9 +19,9 @@ jobs:
   job_2:
     name: Run test on image
     needs: job_1
-    runs-on: ubuntu-latest
+    runs-on: myimagename:latest
     steps:
-      - name: Download result for job 1
+      - name: Download artifact for job 1
         uses: actions/download-artifact@v2
         with:
           name: myimagetar
