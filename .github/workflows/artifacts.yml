@@ -1,42 +1,40 @@
-name: Tutorial - Share data between jobs
-
 on: [push]
 
 jobs:
   job_1:
     if: false
 
-    name: Add 3 and 7
+    name: Build and add image
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: |
-          expr 3 + 7 > math-homework.txt
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file docker/web/githubDockerfile --tag myimagename:latest
+      - name: Save the Docker image to file
+        run: docker save -o myimage.tar myimagename:latest
       - name: Upload math result for job 1
         uses: actions/upload-artifact@v2
         with:
-          name: homework
-          path: math-homework.txt
+          name: myimage-tar
+          path: myimage.tar
 
   job_2:
     if: false
 
-    name: Multiply by 9
+    name: Run test on image
     needs: job_1
     runs-on: windows-latest
     steps:
-      - name: Download math result for job 1
+      - name: Download result for job 1
         uses: actions/download-artifact@v2
         with:
-          name: homework
-      - shell: bash
-        run: |
-          value=`cat math-homework.txt`
-          expr $value \* 9 > math-homework.txt
+          name: myimage-tar
+      - name: Install dependencies
+        run: composer install
       - name: Upload math result for job 2
         uses: actions/upload-artifact@v2
         with:
-          name: homework
+          name: myimage-tar
           path: math-homework.txt
 
   job_3:

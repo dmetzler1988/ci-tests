@@ -1,3 +1,5 @@
+name: Tutorial - Creating a Docker Container Action
+
 on: [push]
 
 jobs:
